@@ -22,8 +22,12 @@ public class PaymentEventConsumer {
     public void handlePaymentEvent(String message) {
         try {
             JsonNode node = objectMapper.readTree(message);
-            Long enrollmentId = node.path("enrollmentId").asLong();
-            String eventType = node.path("eventType").asText();
+            JsonNode data = node.path("data");
+            JsonNode metadata = node.path("metadata");
+
+            Long enrollmentId = data.path("enrollmentId").asLong();
+            String eventType = metadata.path("eventType").asText();
+
             updateUseCase.handlePaymentEvent(enrollmentId, eventType);
         } catch (Exception e) {
             throw new IllegalStateException("Failed to process payment event", e);
