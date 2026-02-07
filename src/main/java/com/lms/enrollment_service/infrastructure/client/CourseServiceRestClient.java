@@ -13,9 +13,10 @@ public class CourseServiceRestClient implements CourseServiceClient {
     private final RestTemplate restTemplate;
     private final String baseUrl;
 
+    // course endpoint
     public CourseServiceRestClient(
             RestTemplate restTemplate,
-            @Value("${services.course.base-url:http://localhost:8081/api/courses}") String baseUrl) {
+            @Value("http://localhost:8080/api/courses") String baseUrl) {
         this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
     }
@@ -25,6 +26,10 @@ public class CourseServiceRestClient implements CourseServiceClient {
         String url = baseUrl + "/" + courseId;
         CourseResponse response = restTemplate.getForObject(url, CourseResponse.class);
         return Optional.ofNullable(response)
-                .map(course -> new CourseSummary(course.id(), course.title(), course.published()));
+            .map(course -> new CourseSummary(
+                course.id(),
+                course.title(),
+                "PUBLISHED".equalsIgnoreCase(course.status())
+            ));
     }
 }

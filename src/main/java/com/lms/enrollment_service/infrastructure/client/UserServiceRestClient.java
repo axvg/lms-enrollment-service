@@ -13,9 +13,10 @@ public class UserServiceRestClient implements UserServiceClient {
     private final RestTemplate restTemplate;
     private final String baseUrl;
 
+    // users endpoint
     public UserServiceRestClient(
             RestTemplate restTemplate,
-            @Value("${services.user.base-url:http://localhost:8082/api/users}") String baseUrl) {
+            @Value("http://localhost:8081/api/users") String baseUrl) {
         this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
     }

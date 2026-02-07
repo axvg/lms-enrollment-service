@@ -9,6 +9,7 @@ import com.lms.enrollment_service.infrastructure.web.dto.EnrollmentResponse;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/enrollments")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EnrollmentController {
 
     private final CreateEnrollmentUseCase createEnrollmentUseCase;
